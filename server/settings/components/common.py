@@ -23,8 +23,8 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 INSTALLED_APPS: Tuple[str, ...] = (
     # Your apps go here:
+    "server.apps.users",
     "server.apps.images",
-    "server.apps.plans",
     # Default django apps:
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -158,6 +158,8 @@ MEDIA_ROOT = BASE_DIR.joinpath("media")
 
 # Django authentication system
 # https://docs.djangoproject.com/en/2.2/topics/auth/
+
+AUTH_USER_MODEL = "users.User"
 
 AUTHENTICATION_BACKENDS = (
     "axes.backends.AxesBackend",
