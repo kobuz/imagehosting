@@ -1,4 +1,3 @@
-
 # Logging
 # https://docs.djangoproject.com/en/2.2/topics/logging/
 
@@ -9,51 +8,48 @@
 import structlog
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-
+    "version": 1,
+    "disable_existing_loggers": False,
     # We use these formatters in our `'handlers'` configuration.
     # Probably, you won't need to modify these lines.
     # Unless, you know what you are doing.
-    'formatters': {
-        'json_formatter': {
-            '()': structlog.stdlib.ProcessorFormatter,
-            'processor': structlog.processors.JSONRenderer(),
+    "formatters": {
+        "json_formatter": {
+            "()": structlog.stdlib.ProcessorFormatter,
+            "processor": structlog.processors.JSONRenderer(),
         },
-        'console': {
-            '()': structlog.stdlib.ProcessorFormatter,
-            'processor': structlog.processors.KeyValueRenderer(
-                key_order=['timestamp', 'level', 'event', 'logger'],
+        "console": {
+            "()": structlog.stdlib.ProcessorFormatter,
+            "processor": structlog.processors.KeyValueRenderer(
+                key_order=["timestamp", "level", "event", "logger"],
             ),
         },
     },
-
     # You can easily swap `key/value` (default) output and `json` ones.
     # Use `'json_console'` if you need `json` logs.
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "console",
         },
-        'json_console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'json_formatter',
+        "json_console": {
+            "class": "logging.StreamHandler",
+            "formatter": "json_formatter",
         },
     },
-
     # These loggers are required by our app:
     # - django is required when using `logger.getLogger('django')`
     # - security is required by `axes`
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'propagate': True,
-            'level': 'INFO',
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "propagate": True,
+            "level": "INFO",
         },
-        'security': {
-            'handlers': ['console'],
-            'level': 'ERROR',
-            'propagate': False,
+        "security": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
         },
     },
 }
@@ -61,7 +57,7 @@ LOGGING = {
 structlog.configure(
     processors=[
         structlog.stdlib.filter_by_level,
-        structlog.processors.TimeStamper(fmt='iso'),
+        structlog.processors.TimeStamper(fmt="iso"),
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
         structlog.stdlib.PositionalArgumentsFormatter(),
