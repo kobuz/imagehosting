@@ -23,6 +23,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 INSTALLED_APPS: Tuple[str, ...] = (
     # Your apps go here:
+    "server.apps.images",
     "server.apps.plans",
     # Default django apps:
     "django.contrib.auth",
@@ -44,6 +45,7 @@ INSTALLED_APPS: Tuple[str, ...] = (
     "health_check.storage",
     # Third party apps
     "django_http_referrer_policy",
+    "sorl.thumbnail",
 )
 
 MIDDLEWARE: Tuple[str, ...] = (

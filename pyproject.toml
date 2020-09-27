@@ -36,6 +36,8 @@ bcrypt = "^3.2"
 structlog = "^20.1.0"
 typing_extensions = "^3.7.4"
 django-extensions = "^3.0.9"
+sorl-thumbnail = "^12.6.3"
+Pillow = "^7.2.0"
 
 
 [tool.poetry.dev-dependencies]
