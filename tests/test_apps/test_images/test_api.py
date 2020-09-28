@@ -1,4 +1,5 @@
 import io
+from unittest.mock import patch
 
 import pytest
 from PIL import Image
@@ -43,8 +44,10 @@ def test_upload_image(api_client, api_user, upload_image):
 @pytest.mark.django_db
 def test_list_images(api_client, api_user):
     image = api_user.image_set.create(image="cute.png")
-    response = api_client.get("/api/images/")
+    with patch(
+        "server.apps.images.serializers.get_thumbnails",
+        return_value=["/media/thumbnail.png"],
+    ):
+        response = api_client.get("/api/images/")
     assert response.status_code == 200
-    assert response.json() == [
-        {"id": image.id, "image": "http://testserver/media/cute.png"}
-    ]
+    assert response.json() == [{"id": image.id, "thumbnails": ["/media/thumbnail.png"]}]
