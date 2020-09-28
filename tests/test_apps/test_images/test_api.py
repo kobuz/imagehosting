@@ -32,7 +32,7 @@ def upload_image():
 @pytest.mark.django_db
 def test_upload_image(api_client, api_user, upload_image):
     response = api_client.put(
-        "/images/upload/",
+        "/api/images/upload/",
         data={"file": upload_image},
         format="multipart",
     )
