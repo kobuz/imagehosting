@@ -15,13 +15,20 @@ from django.contrib.admindocs import urls as admindocs_urls
 from django.urls import include, path
 from django.views.generic import TemplateView
 from health_check import urls as health_urls
+from rest_framework import routers
 
+from server.apps.images import urls as images_urls
 
 admin.autodiscover()
 
+router = routers.DefaultRouter()
 
 urlpatterns = [
     # Apps:
+    path("images/", include(images_urls)),
+    # # DRF:
+    path("api/", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     # Health checks:
     path("health/", include(health_urls)),  # noqa: DJ05
     # django-admin:
