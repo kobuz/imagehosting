@@ -17,7 +17,7 @@ from django.views.generic import TemplateView
 from health_check import urls as health_urls
 from rest_framework import routers
 
-from server.apps.images import urls as images_urls
+from server.apps.images.viewsets import ImagesViewSet, ImageUploadView
 
 admin.autodiscover()
 
@@ -25,9 +25,10 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     # Apps:
-    path("images/", include(images_urls)),
+    path("images/upload/", ImageUploadView.as_view()),
     # # DRF:
     path("api/", include(router.urls)),
+    path("api/images/", ImagesViewSet.as_view()),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     # Health checks:
     path("health/", include(health_urls)),  # noqa: DJ05
